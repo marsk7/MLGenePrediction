@@ -1,99 +1,124 @@
-# Final Choices
-___
-## Pre-processing methods
-* ### Missing values
-The missing values are imputed by all values, use the **median** for numerical features, and use the **most frequent value** for nominal features.
+# **Genetic Function Classifier Training Based on Machine Learning**  
+A project leveraging machine learning techniques for accurate genetic function classification.
 
-* ### Normalization: 
-Use **standardization** for numerical features. Use **pipeline** to handle the imputation and normalization.
+---
 
-* ### Outlier Detection: 
-use **Local outlier factor (LOF)** 
+## **Pre-Processing Methods**  
+### 1. **Handling Missing Values**  
+- Numerical features: Imputed using the **median**.  
+- Nominal features: Imputed using the **most frequent value**.
 
-* ### Outlier handler: 
-Use the **Max Min value** to mask the outliers
+### 2. **Normalization**  
+- Applied **standardization** for numerical features.  
+- Utilized a **pipeline** to integrate both imputation and normalization steps.
 
+### 3. **Outlier Detection**  
+- Method: **Local Outlier Factor (LOF)**.  
 
-## Classification models
-* **Voting classifier** either includes **Decision Tree classifier** and **Random Forest classifier**. 
+### 4. **Outlier Handling**  
+- Approach: Masked outliers using the **Max-Min value** technique.
 
-After testing the four classifiers, and comparing with their f1-scores, Get the result: <br>
-Random Forest classifier and Decision Tree classifier performed better in the single classifier training. kNN and Naive Bayes need to use different preprocessing tech (MinMax scale) to get the similar score, but perform poor on the split test set.
-To achieve a better performance and robust results, combine Random Forest and Decision Tree by voting classifier.
+---
 
+## **Classification Models**  
+### Voting Classifier  
+- Combines **Decision Tree Classifier** and **Random Forest Classifier** for improved performance.  
 
-## Hyperparameters
-* **LOF outlier detection:**: the hyperparameters are tuned by visualization result: `n_neighbors=5, contamination=0.03`.
+### Model Comparison  
+After testing four classifiers and evaluating their F1 scores:  
+- **Random Forest** and **Decision Tree** outperformed other models during single-classifier training.  
+- **k-Nearest Neighbors (kNN)** and **Naive Bayes** required different preprocessing (e.g., MinMax scaling) to achieve similar scores but underperformed on the split test set.  
+- **Voting Classifier** demonstrated better robustness and accuracy by combining Decision Tree and Random Forest models.
 
-* **DecisionTreeClassifier:**: the hyperparameters are tuned by GridsearchCV: `max_depth=2, min_samples_leaf=4, min_samples_split=2`.
+---
 
-* **RandomForestClassifier:** the hyperparameters are tuned by GridsearchCV: `n_estimators=100, max_depth=7, min_samples_split=5, min_samples_leaf=2`.
+## **Hyperparameters**  
+### **LOF Outlier Detection**  
+- Tuned parameters:  
+  - `n_neighbors=5`, `contamination=0.03`.  
+  - Based on visualization results.
 
+### **Decision Tree Classifier**  
+- Tuned with GridSearchCV:  
+  - `max_depth=2`, `min_samples_leaf=4`, `min_samples_split=2`.
 
-# Environment Description
-___
-* Operating system: **macOS 12.7.6** <br>
+### **Random Forest Classifier**  
+- Tuned with GridSearchCV:  
+  - `n_estimators=100`, `max_depth=7`, `min_samples_split=5`, `min_samples_leaf=2`.
 
-* Programming language: **Python 3.9** 
+---
 
-* Additional installed packages: **Pandas, Numpy, sklearn(scikit-learn), matplotlib, scipy**.
+## **Environment Description**  
+- **Operating System**: macOS 12.7.6  
+- **Programming Language**: Python 3.9  
+- **Required Packages**:  
+  - `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `scipy`  
 
+---
 
-# Reproduction Instructions
-___
-## Reproduce the result
-To reproduce the result, just run `main.py` file through python3, which will generate result file `s4785581.infs4203` under the same directory. (Need to install all the requirement)
+## **Reproduction Instructions**  
+### 1. **Reproduce the Results**  
+- Run the `main.py` file:  
+  ```bash
+  python3 main.py
+  ```
+- The results will be saved as `s4785581.infs4203` in the current directory.  
+- Ensure all required packages are installed beforehand.
 
-## Reproduce hyperparameter tuning
-* ### LOF outlier detection hyperparameters:
-Uncomment `main.py` line 61: 
-```python
-# outlier_lof(X_train_processed)
-```
-and run `main.py` file, which will generate a sort of matplot figures of outliers with different hyperparameters. 
+### 2. **Hyperparameter Tuning**  
+#### **LOF Outlier Detection**  
+- Uncomment line 61 in `main.py`:  
+  ```python
+  # outlier_lof(X_train_processed)
+  ```
+- Run `main.py` to generate matplotlib visualizations of outliers for different hyperparameters.  
+*(Comment out other code to focus on this step.)*
 
-*(It is better to comment the rest of the code.)
+#### **Decision Tree Classifier**  
+- Uncomment line 120 in `main.py`:  
+  ```python
+  # dt_hyper(X_train_processed, y_train)
+  ```
+- Run `main.py`. The console output will display:  
+  ```
+  Best parameters for Decision Tree: {'max_depth': 2, 'min_samples_leaf': 4, 'min_samples_split': 2}
+  Best F1 score for Decision Tree: 0.7913
+  ```
 
-* ### Decision Tree Classifier:
-Uncomment `main.py` line 120: 
-```python
-# dt_hyper(X_train_processed, y_train)
-```
-and run `main.py` file, which will output hyperparameters as:
-```
-Best parameters for Decision Tree: {'max_depth': 2, 'min_samples_leaf': 4, 'min_samples_split': 2}
-Best F1 score for Decision Tree: 0.7912934472934472
-```
-*(It is better to comment the rest of the code.)
+#### **Random Forest Classifier**  
+- Uncomment line 121 in `main.py`:  
+  ```python
+  # rf_hyper(X_train_processed, y_train)
+  ```
+- Run `main.py`. The console output will display:  
+  ```
+  Best parameters for Random Forest: {'max_depth': 7, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 100}
+  Best F1 score for Random Forest: 0.7912
+  ```
 
-* ### Decision Tree Classifier:
-Uncomment `main.py` line 121: 
-```python
-# rf_hyper(X_train_processed, y_train)
-```
-and run `main.py` file, which will output hyperparameters as:
-```
-Best parameters for Random Forest: {'max_depth': 7, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 100}
-Best F1 score for Random Forest: 0.7911900008435735
-```
-*(It is better to comment the rest of the code.)
+### 3. **Evaluation**  
+- Evaluation code is located in lines 143–155 of `main.py`.  
+- Run `main.py` to display the following results:  
+  ```
+  Average accuracy: 0.9555
+  Average precision: 0.9553
+  Average recall: 0.6645
+  Average F1 score: 0.7823
+  ```
+- Split test set results:  
+  ```
+  F1 score on Test Set: 0.6780
+  Accuracy on Test Set: 0.9406
+  ```
 
-* ### Evaluation
-Evaluation codes are in `main.py` **line 143 - line 155**, once run `main.py`, the console will print out the score of the voting classifier as:
-```
-Average accuracy: 0.9555
-Average precicion: 0.9553
-Average recall: 0.6645
-Average f1_score: 0.7823
-```
-and the score on the split test set as:
-```
-F1 score on Test Set: 0.6780
-Accuracy on Test Set: 0.9406
-```
+---
 
+## **Additional Justifications**  
+- **kNN** and **Naive Bayes** classifiers, along with alternative outlier detection methods, are included in the `hyperparameter_tune.py` file for comparison purposes.
 
-# Additional Justifications
-___
-kNN and Naive Bayes classifier are included in the `hyperparameter_tune.py` file, as well as other outlier detection methods have compared.
-# MLGenePrediction
+---
+
+## **Project Highlights**  
+This project demonstrates the power of machine learning in classifying genetic functions, with a focus on preprocessing, model optimization, and robust evaluation techniques.
+
+---
