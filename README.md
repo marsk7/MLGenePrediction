@@ -62,7 +62,7 @@ After testing four classifiers and evaluating their F1 scores:
   ```bash
   python3 main.py
   ```
-- The results will be saved as `s4785581.infs4203` in the current directory.  
+- The results will be saved as `s12345.infs4203` in the current directory.  
 - Ensure all required packages are installed beforehand.
 
 ### 2. **Hyperparameter Tuning**  
