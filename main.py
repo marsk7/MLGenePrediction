@@ -175,7 +175,7 @@ mean_f1 = round(f1.mean(), 3)
 
 # Convert predictions to a DataFrame
 predictions_df = pd.DataFrame(y_test_pred, columns=['Prediction'], dtype=int)
-predictions_df.to_csv('s4785581.infs4203', index=False, header=False, lineterminator=',\n')
+predictions_df.to_csv('s12345.infs4203', index=False, header=False, lineterminator=',\n')
 
 # Open the file in append mode to add the evaluation row
 with open('s12345.infs4203', 'a') as f:
